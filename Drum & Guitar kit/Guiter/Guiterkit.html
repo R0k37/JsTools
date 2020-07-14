@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Guiter Kit</title>
+	<link rel="stylesheet" type="text/css" href="Guiterkit.css">
+</head>
+<body>
+
+	<div class="keys">
+	<div class="key" data-key="67"><kbd>C</kbd><span class="sound">C major chord</span></div>
+	<div class="key" data-key="65"><kbd>A</kbd><span class="sound">A major chord</span></div>
+	<div class="key" data-key="71"><kbd>G</kbd><span class="sound">G major chord</span></div>
+	<div class="key" data-key="69"><kbd>E</kbd><span class="sound">E major chord</span></div>
+	<div class="key" data-key="68"><kbd>D</kbd><span class="sound">D major chord</span></div>
+	<div class="key" data-key="81"><kbd>Q</kbd><span class="sound">A minor chord</span></div>
+
+	<div class="key" data-key="83"><kbd>S</kbd><span class="sound">E minor chord</span></div>
+	<div class="key" data-key="82"><kbd>R</kbd><span class="sound">D minor chord</span></div>
+	<div class="key" data-key="70"><kbd>F</kbd><span class="sound">F major chord</span></div>
+	<div class="key" data-key="86"><kbd>V</kbd><span class="sound">F# major chord</span></div>
+	<div class="key" data-key="84"><kbd>T</kbd><span class="sound">F minor chord</span></div>
+	<div class="key" data-key="89"><kbd>Y</kbd><span class="sound">F# minor chord</span></div>
+	<div class="key" data-key="90"><kbd>Z</kbd><span class="sound">G minor chord</span></div>
+	<div class="key" data-key="66"><kbd>B</kbd><span class="sound">B major chord</span></div>
+	<div class="key" data-key="72"><kbd>H</kbd><span class="sound">B minor chord</span></div>
+	<div class="key" data-key="88"><kbd>X</kbd><span class="sound">C minor chord</span></div>
+	</div>
+
+
+	<audio data-key="67" src="sounds/67.wav"></audio>
+	<audio data-key="65" src="sounds/65.wav"></audio>
+	<audio data-key="71" src="sounds/71.wav"></audio>
+	<audio data-key="69" src="sounds/69.wav"></audio>
+	<audio data-key="68" src="sounds/68.wav"></audio>
+	<audio data-key="81" src="sounds/81.wav"></audio>
+	<audio data-key="83" src="sounds/83.wav"></audio>
+	<audio data-key="82" src="sounds/82.wav"></audio>
+	<audio data-key="70" src="sounds/70.wav"></audio>
+	<audio data-key="86" src="sounds/86.wav"></audio>
+	<audio data-key="84" src="sounds/84.wav"></audio>
+	<audio data-key="89" src="sounds/89.wav"></audio>
+	<audio data-key="90" src="sounds/90.wav"></audio>
+	<audio data-key="66" src="sounds/66.wav"></audio>
+	<audio data-key="72" src="sounds/72.wav"></audio>
+	<audio data-key="88" src="sounds/88.wav"></audio>
+<script type="text/javascript">
+	function playSound(e)
+	{
+		const audio=document.querySelector(`audio[data-key="${e.keyCode}"]`);
+		const key=document.querySelector(`.key[data-key="${e.keyCode}"`);
+
+		if(!audio) return;
+		audio.currentTime=0;
+		audio.play();
+		key.classList.add("playing");
+	}
+	function removeTransition(e)
+	{
+		if (e.propertyName!="transform") return;
+		this.classList.remove("playing");
+	}
+
+	const keys=document.querySelectorAll('.key');
+	keys.forEach(key => key.addEventListener('transitionend',removeTransition));
+	window.addEventListener('keydown',playSound);
+</script>
+</body>
+</html>
